@@ -19,11 +19,13 @@ def get_db():
     finally:
         db.close()
 
+
+
 @app.get('/')
 async def root ():
     return {'message': 'Hello World'}
 
-@app.get('/simplified_lookup/{word}', response_model=List[DefinitionSchema])
+@app.get('/character_lookup/{word}', response_model=List[DefinitionSchema])
 async def lookup_character (word: str, db: Session = Depends(get_db)):
     matches = crud.lookup_character(db, word)
     return matches
